@@ -61,39 +61,51 @@ namespace OtoServisSatis.WebUI.Areas.Admin.Controllers
         }
 
         // GET: CustomersController/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> EditAsync(int id)
         {
-            return View();
+            ViewBag.AracId = new SelectList(await _serviceArac.GetAllAsync(), "Id", "Modeli");
+            var model = await _service.FindAsync(id);
+            return View(model);
         }
 
         // POST: CustomersController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<ActionResult> EditAsync(int id, Musteri musteri)
         {
-            try
+            if (ModelState.IsValid)
             {
-                return RedirectToAction(nameof(Index));
+                try
+                {
+                    _service.Update(musteri);
+                    await _service.SaveAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                catch
+                {
+                    ModelState.AddModelError("", "Hata Oluştu!");
+                }
             }
-            catch
-            {
-                return View();
-            }
+            ViewBag.AracId = new SelectList(await _serviceArac.GetAllAsync(), "Id", "Modeli");
+            return View(musteri);
         }
 
         // GET: CustomersController/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> DeleteAsync(int id)
         {
-            return View();
+            var model = await _service.FindAsync(id);
+            return View(model);
         }
 
         // POST: CustomersController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(int id, Musteri musteri)
         {
             try
             {
+                _service.Delete(musteri);
+                _service.SaveAsync();
                 return RedirectToAction(nameof(Index));
             }
             catch
