@@ -20,6 +20,11 @@ namespace OtoServisSatis.WebUI.Areas.Admin.Controllers
         {
             return View();
         }
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync();
+            return Redirect("/Admin/Login");
+        }
         [HttpPost]
         public async Task<IActionResult> IndexAsync(string email, string password)
         {
