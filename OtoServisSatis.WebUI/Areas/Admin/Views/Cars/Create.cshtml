@@ -9,7 +9,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Create" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="MarkaId" class="control-label"></label>
@@ -51,6 +51,21 @@
                 <span asp-validation-for="Notlar" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="Resim1" class="control-label"></label>
+                <input asp-for="Resim1" class="form-control" type="file" />
+                <span asp-validation-for="Resim1" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Resim2" class="control-label"></label>
+                <input asp-for="Resim2" class="form-control" type="file" />
+                <span asp-validation-for="Resim2" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Resim3" class="control-label"></label>
+                <input asp-for="Resim3" class="form-control" type="file" />
+                <span asp-validation-for="Resim3" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-2">
                 <input type="submit" value="Ekle" class="btn btn-primary" />
             </div>
         </form>
