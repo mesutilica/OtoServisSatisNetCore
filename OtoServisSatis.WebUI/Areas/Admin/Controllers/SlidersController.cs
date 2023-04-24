@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OtoServisSatis.Entities;
 using OtoServisSatis.Service.Abstract;
@@ -67,7 +66,7 @@ namespace OtoServisSatis.WebUI.Areas.Admin.Controllers
         {
             try
             {
-                if(Resim is not null)
+                if (Resim is not null)
                     collection.Resim = await FileHelper.FileLoaderAsync(Resim, "/Img/Slider/");
                 _service.Update(collection);
                 await _service.SaveAsync();

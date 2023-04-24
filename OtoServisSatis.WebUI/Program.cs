@@ -1,7 +1,7 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using OtoServisSatis.Data;
 using OtoServisSatis.Service.Abstract;
 using OtoServisSatis.Service.Concrete;
-using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,8 +15,8 @@ builder.Services.AddTransient(typeof(IService<>), typeof(Service<>));
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(x =>
 {
     x.LoginPath = "/Admin/Login";
-    x.AccessDeniedPath= "/AccessDenied";
-    x.LogoutPath= "/Admin/Logout";
+    x.AccessDeniedPath = "/AccessDenied";
+    x.LogoutPath = "/Admin/Logout";
     x.Cookie.Name = "Admin";
     x.Cookie.MaxAge = TimeSpan.FromDays(7);
     x.Cookie.IsEssential = true;
