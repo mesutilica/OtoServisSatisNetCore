@@ -1,14 +1,13 @@
-﻿@model IEnumerable<Slider>
+﻿@model HomePageViewModel
 @{
     ViewData["Title"] = "Anasayfa";
 }
 
 <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
-    
     <div class="carousel-inner">
-        @foreach (var item in Model)
+        @foreach (var item in Model.Sliders)
         {
-            <div class="carousel-item @(item == Model.FirstOrDefault() ? "active" : "")">
+            <div class="carousel-item @(item == Model.Sliders.FirstOrDefault() ? "active" : "")">
                 <img src="/Img/Slider/@item.Resim" class="d-block w-100" alt="...">
                 <div class="carousel-caption d-none d-md-block">
                     <h5>@item.Baslik</h5>
@@ -28,6 +27,33 @@
 </div>
 
 <div class="text-center">
-    <h1 class="display-4">Oto Servis ve Satış .Net Core MVC</h1>
-    <p>.Net Framework ile geliştirdiğimiz Oto Servis ve Satış uygulamasının ASP.NET Core MVC versiyonu..</p>
+    <h1 class="display-4">Oto Servis ve Satış</h1>
+    <p>Oto Servis ve Satış uygulaması</p>
+</div>
+
+<div class="container px-4 px-lg-5 mt-5">
+    <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+        @foreach (var item in Model.Araclar)
+        {
+            <div class="col mb-5">
+                <div class="card h-100">
+                    <!-- Product image-->
+                    <img class="card-img-top" src="/Img/Cars/@item.Resim1" alt="...">
+                    <!-- Product details-->
+                    <div class="card-body p-4">
+                        <div class="text-center">
+                            <!-- Product name-->
+                            <h5 class="fw-bolder">@item.Marka @item.Modeli @item.KasaTipi</h5>
+                            <!-- Product price-->
+                            @item.Fiyati ₺
+                        </div>
+                    </div>
+                    <!-- Product actions-->
+                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/Arac/Index/@item.Id">İncele</a></div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
 </div>
