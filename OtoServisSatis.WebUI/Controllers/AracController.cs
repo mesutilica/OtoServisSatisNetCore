@@ -24,5 +24,10 @@ namespace OtoServisSatis.WebUI.Controllers
             var model = await _serviceArac.GetCustomCarList(c => c.SatistaMi);
             return View(model);
         }
+        public async Task<IActionResult> Ara(string q)
+        {
+            var model = await _serviceArac.GetCustomCarList(c => c.SatistaMi && c.Marka.Adi.Contains(q) || c.KasaTipi.Contains(q) || c.Modeli.Contains(q));
+            return View(model);
+        }
     }
 }
