@@ -10,10 +10,12 @@ namespace OtoServisSatis.WebUI.Areas.Admin.Controllers
     public class LoginController : Controller
     {
         private readonly IService<Kullanici> _service;
+        private readonly IService<Rol> _serviceRol;
 
-        public LoginController(IService<Kullanici> service)
+        public LoginController(IService<Kullanici> service, IService<Rol> serviceRol)
         {
             _service = service;
+            _serviceRol = serviceRol;
         }
 
         public IActionResult Index()
@@ -37,11 +39,15 @@ namespace OtoServisSatis.WebUI.Areas.Admin.Controllers
                 }
                 else
                 {
+                    var rol = _serviceRol.Get(r => r.Id == account.RolId);
                     var claims = new List<Claim>()
                     {
-                        new Claim(ClaimTypes.Name, account.Adi),
-                        new Claim("Role", "Admin")
+                        new Claim(ClaimTypes.Name, account.Adi)
                     };
+                    if (rol is not null)
+                    {
+                        claims.Add(new Claim("Role", rol.Adi));
+                    }
                     var userIdentity = new ClaimsIdentity(claims, "Login");
                     ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);
                     await HttpContext.SignInAsync(principal);

@@ -23,6 +23,12 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     x.Cookie.IsEssential = true;
 });
 
+builder.Services.AddAuthorization(x =>
+{
+    x.AddPolicy("AdminPolicy", policy => policy.RequireClaim("Role", "Admin"));
+    x.AddPolicy("UserPolicy", policy => policy.RequireClaim("Role", "User"));
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
