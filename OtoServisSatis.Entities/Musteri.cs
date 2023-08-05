@@ -8,13 +8,13 @@ namespace OtoServisSatis.Entities
         [Display(Name = "Araç")]
         public int AracId { get; set; }
         [StringLength(50)]
-        [Display(Name = "Adı"), Required(ErrorMessage = "{0} Boş Bırakılamaz!")]
+        [Display(Name = "Ad"), Required(ErrorMessage = "{0} Boş Bırakılamaz!")]
         public string Adi { get; set; }
         [StringLength(50)]
-        [Display(Name = "Soyadı"), Required(ErrorMessage = "{0} Boş Bırakılamaz!")]
+        [Display(Name = "Soyad"), Required(ErrorMessage = "{0} Boş Bırakılamaz!")]
         public string Soyadi { get; set; }
         [StringLength(11)]
-        [Display(Name = "TC Numarası")]
+        [Display(Name = "TC Kimlik Numarası")]
         public string? TcNo { get; set; }
         [StringLength(50), Required(ErrorMessage = "{0} Boş Bırakılamaz!")]
         public string Email { get; set; }

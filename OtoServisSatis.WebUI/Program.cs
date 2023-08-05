@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using OtoServisSatis.Data;
 using OtoServisSatis.Service.Abstract;
 using OtoServisSatis.Service.Concrete;
+using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,8 +26,11 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 
 builder.Services.AddAuthorization(x =>
 {
-    x.AddPolicy("AdminPolicy", policy => policy.RequireClaim("Role", "Admin"));
-    x.AddPolicy("UserPolicy", policy => policy.RequireClaim("Role", "User"));
+    //x.AddPolicy("AdminPolicy", policy => policy.RequireClaim("Role", "Admin"));
+    //x.AddPolicy("UserPolicy", policy => policy.RequireClaim("Role", "User"));
+
+    x.AddPolicy("AdminPolicy", policy => policy.RequireClaim(ClaimTypes.Role, "Admin"));
+    x.AddPolicy("UserPolicy", policy => policy.RequireClaim(ClaimTypes.Role, "User"));
 });
 
 var app = builder.Build();
