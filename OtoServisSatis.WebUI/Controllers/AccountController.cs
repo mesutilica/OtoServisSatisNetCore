@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OtoServisSatis.Entities;
 using OtoServisSatis.Service.Abstract;
@@ -17,7 +18,7 @@ namespace OtoServisSatis.WebUI.Controllers
             _service = service;
             _serviceRol = serviceRol;
         }
-
+        [Authorize(Policy = "CustomerPolicy")]
         public IActionResult Index()
         {
             return View();
@@ -57,6 +58,7 @@ namespace OtoServisSatis.WebUI.Controllers
         {
             return View();
         }
+
         [HttpPost]
         public async Task<IActionResult> LoginAsync(CustomerLoginViewModel customerViewModel)
         {
@@ -82,6 +84,10 @@ namespace OtoServisSatis.WebUI.Controllers
                     var userIdentity = new ClaimsIdentity(claims, "Login");
                     ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);
                     await HttpContext.SignInAsync(principal);
+                    if (rol.Adi == "Admin")
+                    {
+                        return Redirect("/Admin");
+                    }
                     return Redirect("/Account");
                 }
             }
@@ -90,6 +96,11 @@ namespace OtoServisSatis.WebUI.Controllers
                 ModelState.AddModelError("", "Hata Oluştu!");
             }
             return View();
+        }
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync();
+            return Redirect("/");
         }
     }
 }

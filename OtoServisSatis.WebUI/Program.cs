@@ -16,9 +16,9 @@ builder.Services.AddTransient<ICarService, CarService>();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(x =>
 {
-    x.LoginPath = "/Admin/Login";
+    x.LoginPath = "/Account/Login";
     x.AccessDeniedPath = "/AccessDenied";
-    x.LogoutPath = "/Admin/Logout";
+    x.LogoutPath = "/Account/Logout";
     x.Cookie.Name = "Admin";
     x.Cookie.MaxAge = TimeSpan.FromDays(7);
     x.Cookie.IsEssential = true;
@@ -30,7 +30,8 @@ builder.Services.AddAuthorization(x =>
     //x.AddPolicy("UserPolicy", policy => policy.RequireClaim("Role", "User"));
 
     x.AddPolicy("AdminPolicy", policy => policy.RequireClaim(ClaimTypes.Role, "Admin"));
-    x.AddPolicy("UserPolicy", policy => policy.RequireClaim(ClaimTypes.Role, "User"));
+    x.AddPolicy("UserPolicy", policy => policy.RequireClaim(ClaimTypes.Role, "Admin", "User"));
+    x.AddPolicy("CustomerPolicy", policy => policy.RequireClaim(ClaimTypes.Role, "Admin", "User", "Customer"));
 });
 
 var app = builder.Build();
