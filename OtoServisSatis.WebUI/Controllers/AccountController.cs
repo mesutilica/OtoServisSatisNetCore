@@ -10,10 +10,10 @@ namespace OtoServisSatis.WebUI.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly IService<Kullanici> _service;
+        private readonly IUserService _service;
         private readonly IService<Rol> _serviceRol;
 
-        public AccountController(IService<Kullanici> service, IService<Rol> serviceRol)
+        public AccountController(IUserService service, IService<Rol> serviceRol)
         {
             _service = service;
             _serviceRol = serviceRol;
@@ -21,7 +21,50 @@ namespace OtoServisSatis.WebUI.Controllers
         [Authorize(Policy = "CustomerPolicy")]
         public IActionResult Index()
         {
-            return View();
+            var email = User.FindFirst(ClaimTypes.Email)?.Value;
+            var uguid = User.FindFirst(ClaimTypes.UserData)?.Value;
+            if (!string.IsNullOrEmpty(email) || !string.IsNullOrEmpty(uguid))
+            {
+                var user = _service.Get(k => k.Email == email && k.UserGuid.ToString() == uguid);
+                if (user != null)
+                {
+                    return View(user);
+                }
+            }
+            return NotFound();
+        }
+        [HttpPost]
+        public IActionResult UserUpdate(Kullanici kullanici)
+        {
+            try
+            {
+                var email = User.FindFirst(ClaimTypes.Email)?.Value;
+                var uguid = User.FindFirst(ClaimTypes.UserData)?.Value;
+                if (!string.IsNullOrEmpty(email) || !string.IsNullOrEmpty(uguid))
+                {
+                    var user = _service.Get(k => k.Email == email && k.UserGuid.ToString() == uguid);
+                    if (user != null)
+                    {
+                        user.Adi = kullanici.Adi;
+                        user.AktifMi = kullanici.AktifMi;
+                        user.Email = kullanici.Email;
+                        user.UserGuid = kullanici.UserGuid;
+                        user.Sifre = kullanici.Sifre;
+                        user.EklenmeTarihi = kullanici.EklenmeTarihi;
+                        user.Soyadi = kullanici.Soyadi;
+                        user.Telefon = kullanici.Telefon;
+
+                        _service.Update(user);
+                        _service.Save();
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError("", "Hata Oluştu!");
+            }
+
+            return RedirectToAction("Index");
         }
         public IActionResult Register()
         {
@@ -74,7 +117,9 @@ namespace OtoServisSatis.WebUI.Controllers
                     var rol = _serviceRol.Get(r => r.Id == account.RolId);
                     var claims = new List<Claim>()
                     {
-                        new Claim(ClaimTypes.Name, account.Adi)
+                        new Claim(ClaimTypes.Name, account.Adi),
+                        new Claim(ClaimTypes.Email, account.Email),
+                        new Claim(ClaimTypes.UserData, account.UserGuid.ToString())
                     };
                     if (rol is not null)
                     {
