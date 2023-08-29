@@ -1,6 +1,6 @@
-﻿@model Arac
+﻿@model CarDetailViewModel
 @{
-    ViewData["Title"] = Model.Marka.Adi + " " + Model.Modeli + " " + Model.KasaTipi;
+    ViewData["Title"] = Model.Arac.Marka.Adi + " " + Model.Arac.Modeli + " " + Model.Arac.KasaTipi;
 }
 
 <section class="py-5">
@@ -15,13 +15,13 @@
                     </div>
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                            <img src="/Img/Cars/@Model.Resim1" class="d-block w-100" alt="...">
+                            <img src="/Img/Cars/@Model.Arac.Resim1" class="d-block w-100" alt="...">
                         </div>
                         <div class="carousel-item">
-                            <img src="/Img/Cars/@Model.Resim2" class="d-block w-100" alt="...">
+                            <img src="/Img/Cars/@Model.Arac.Resim2" class="d-block w-100" alt="...">
                         </div>
                         <div class="carousel-item">
-                            <img src="/Img/Cars/@Model.Resim3" class="d-block w-100" alt="...">
+                            <img src="/Img/Cars/@Model.Arac.Resim3" class="d-block w-100" alt="...">
                         </div>
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -33,22 +33,21 @@
                         <span class="visually-hidden">Next</span>
                     </button>
                 </div>
-                
             </div>
             <div class="col-md-6">
                 <div class="small mb-1"></div>
                 <h1 class="display-5 fw-bolder">@ViewData["Title"]</h1>
                 <div class="fs-5">
-                    <span>Fiyatı : @Model.Fiyati ₺</span>
+                    <span>Fiyatı : @Model.Arac.Fiyati ₺</span>
                 </div>
                 <div class="fs-5">
-                    <span>Renk : @Model.Renk</span>
+                    <span>Renk : @Model.Arac.Renk</span>
                 </div>
                 <div class="fs-5">
-                    <span>Model Yılı : @Model.ModelYili</span>
+                    <span>Model Yılı : @Model.Arac.ModelYili</span>
                 </div>
                 <p class="lead">
-                    @Model.Notlar
+                    @Model.Arac.Notlar
                 </p>
                 <div class="d-flex">
                     <button class="btn btn-outline-dark flex-shrink-0" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -63,4 +62,4 @@
 
 <!-- Modal -->
 
-<partial name="Musteri" model="null" />
+<partial name="Musteri" model="Model.Musteri" />
