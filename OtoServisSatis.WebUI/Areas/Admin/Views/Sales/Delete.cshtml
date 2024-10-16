@@ -15,7 +15,7 @@
             @Html.DisplayNameFor(model => model.SatisFiyati)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SatisFiyati)
+            @Model.SatisFiyati.ToString("c")
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.SatisTarihi)
@@ -27,13 +27,13 @@
             @Html.DisplayNameFor(model => model.Arac)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Arac.KasaTipi)
+            @Html.DisplayFor(model => model.Arac.AracBilgi)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Musteri)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Musteri.Adi)
+            @Html.DisplayFor(model => model.Musteri.AdSoyad)
         </dd>
     </dl>
     

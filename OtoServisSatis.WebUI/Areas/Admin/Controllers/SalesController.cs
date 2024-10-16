@@ -36,8 +36,8 @@ namespace OtoServisSatis.WebUI.Areas.Admin.Controllers
         // GET: SalesController/Create
         public async Task<ActionResult> CreateAsync()
         {
-            ViewBag.AracId = new SelectList(await _serviceArac.GetAllAsync(), "Id", "Modeli");
-            ViewBag.MusteriId = new SelectList(await _serviceMusteri.GetAllAsync(), "Id", "Adi");
+            ViewBag.AracId = new SelectList(await _serviceArac.GetAllAsync(), "Id", "AracBilgi");
+            ViewBag.MusteriId = new SelectList(await _serviceMusteri.GetAllAsync(), "Id", "AdSoyad");
             return View();
         }
 
@@ -59,16 +59,16 @@ namespace OtoServisSatis.WebUI.Areas.Admin.Controllers
                     ModelState.AddModelError("", "Hata Oluştu!");
                 }
             }
-            ViewBag.AracId = new SelectList(await _serviceArac.GetAllAsync(), "Id", "Modeli");
-            ViewBag.MusteriId = new SelectList(await _serviceMusteri.GetAllAsync(), "Id", "Adi");
+            ViewBag.AracId = new SelectList(await _serviceArac.GetAllAsync(), "Id", "AracBilgi");
+            ViewBag.MusteriId = new SelectList(await _serviceMusteri.GetAllAsync(), "Id", "AdSoyad");
             return View(satis);
         }
 
         // GET: SalesController/Edit/5
         public async Task<ActionResult> EditAsync(int id)
         {
-            ViewBag.AracId = new SelectList(await _serviceArac.GetAllAsync(), "Id", "Modeli");
-            ViewBag.MusteriId = new SelectList(await _serviceMusteri.GetAllAsync(), "Id", "Adi");
+            ViewBag.AracId = new SelectList(await _serviceArac.GetAllAsync(), "Id", "AracBilgi");
+            ViewBag.MusteriId = new SelectList(await _serviceMusteri.GetAllAsync(), "Id", "AdSoyad");
             var model = await _service.FindAsync(id);
             return View(model);
         }
@@ -91,8 +91,8 @@ namespace OtoServisSatis.WebUI.Areas.Admin.Controllers
                     ModelState.AddModelError("", "Hata Oluştu!");
                 }
             }
-            ViewBag.AracId = new SelectList(await _serviceArac.GetAllAsync(), "Id", "Modeli");
-            ViewBag.MusteriId = new SelectList(await _serviceMusteri.GetAllAsync(), "Id", "Adi");
+            ViewBag.AracId = new SelectList(await _serviceArac.GetAllAsync(), "Id", "AracBilgi");
+            ViewBag.MusteriId = new SelectList(await _serviceMusteri.GetAllAsync(), "Id", "AdSoyad");
             return View(satis);
         }
 

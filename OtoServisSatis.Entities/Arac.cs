@@ -31,5 +31,13 @@ namespace OtoServisSatis.Entities
         [StringLength(100)]
         public string? Resim3 { get; set; }
         public virtual Marka? Marka { get; set; } //Araç sınıfı ile Marka sınıfı arasında bağlantı
+        [Display(Name = "Ad Soyad"), ScaffoldColumn(false)]
+        public string? AracBilgi
+        {
+            get
+            {
+                return this.Renk + " " + this.Modeli + " " + this.KasaTipi;
+            }
+        }
     }
 }
