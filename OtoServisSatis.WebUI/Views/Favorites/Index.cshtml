@@ -1,0 +1,44 @@
+﻿@model IEnumerable<Arac>
+@{
+    ViewData["Title"] = "Favorilerim";
+}
+
+<h1>Favorilerim</h1>
+
+@if (Model is not null && Model.Count() > 0)
+{
+    <table class="table table-hover table-striped">
+        <tr>
+            <th>Araç</th>
+            <th>Resim</th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <a class="nav-link text-dark" href="/Arac/Index/@item.Id">
+                        @item.Marka.Adi @item.Modeli @item.Renk @item.KasaTipi
+                    </a>
+                </td>
+                <td>
+                    <a href="/Img/Cars/@item.Resim1">
+                        <img src="/Img/Cars/@item.Resim1" alt="@item.Modeli" height="40" />
+                    </a>
+                </td>
+                <td>
+                    <form action="/Favorites/Remove" method="post">
+                        <input type="hidden" name="aracId" value="@item.Id" />
+                        <button type="submit" class="btn btn-danger">X</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <div class="alert alert-warning">
+        <h3>Favorilerinizde Araç Yok!</h3>
+    </div>
+}

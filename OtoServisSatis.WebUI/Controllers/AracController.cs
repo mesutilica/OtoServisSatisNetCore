@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OtoServisSatis.Entities;
 using OtoServisSatis.Service.Abstract;
-using OtoServisSatis.Service.Concrete;
 using OtoServisSatis.WebUI.Models;
-using OtoServisSatis.WebUI.Utils;
 using System.Security.Claims;
 
 namespace OtoServisSatis.WebUI.Controllers
